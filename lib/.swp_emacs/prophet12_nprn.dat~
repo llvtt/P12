@@ -1,0 +1,291 @@
+name,nprn_number,range_min,range_max
+
+master coarse tune,1024,0,24
+master fine tune,1025,0,100
+midi channel,1026,0,16
+midi clock mode,1027,0,3
+midi clock cable,1028,0,1
+midi param send,1029,0,2
+midi param receive,1030,0,2
+midi control enable,1031,0,1
+midi sysex enable,1032,0,1
+midi sysex cable,1033,0,2
+midi out select,1034,0,3
+local control,1035,0,1
+mono/stereo,1036,0,1
+pot mode,1037,0,2
+sustain footswitch,1038,0,1
+sustain pedal function,1039,0,1
+pedal 1 function,1040,0,5
+pedal 2 function,1041,0,1
+aftertouch enable,1042,0,1
+aftertouch curve,1043,0,3
+velocity curve,1044,0,3
+
+osc 1 pitch,0,0,120
+osc 1 fine tune,1,0,100
+osc 1 level,2,0,127
+osc 1 shape,3,0,19
+osc 1 shape mod,4,0,127
+osc 1 wave left,5,0,11
+osc 1 wave right,6,0,11
+osc 1 fm,7,0,255
+osc 1 am,8,0,255
+osc 1 slop,9,0,127
+osc 1 glide amt,10,0,127
+osc 1 sync,11,0,1
+osc 1 key follow,12,0,1
+osc 1 wave reset,13,0,1
+
+osc 2 pitch,18,0,120
+osc 2 fine tune,19,0,100
+osc 2 level,20,0,127
+osc 2 shape,21,0,19
+osc 2 shape mod,22,0,127
+osc 2 wave left,23,0,11
+osc 2 wave right,24,0,11
+osc 2 fm,25,0,255
+osc 2 am,26,0,255
+osc 2 slop,27,0,127
+osc 2 glide amt,28,0,127
+osc 2 sync,29,0,1
+osc 2 key follow,30,0,1
+osc 2 wave reset,31,0,1
+
+osc 3 pitch,36,0,120
+osc 3 fine tune,37,0,100
+osc 3 level,38,0,127
+osc 3 shape,39,0,19
+osc 3 shape mod,40,0,127
+osc 3 wave left,41,0,11
+osc 3 wave right,42,0,11
+osc 3 fm,43,0,255
+osc 3 am,44,0,255
+osc 3 slop,45,0,127
+osc 3 glide amt,46,0,127
+osc 3 sync,47,0,1
+osc 3 key follow,48,0,1
+osc 3 wave reset,49,0,1
+
+osc 4 pitch,54,0,120
+osc 4 fine tune,55,0,100
+osc 4 level,56,0,127
+osc 4 shape,57,0,19
+osc 4 shape mod,58,0,127
+osc 4 wave left,59,0,11
+osc 4 wave right,60,0,11
+osc 4 fm,61,0,255
+osc 4 am,62,0,255
+osc 4 slop,63,0,127
+osc 4 glide amt,64,0,127
+osc 4 sync,65,0,1
+osc 4 key follow,66,0,1
+osc 4 wave reset,67,0,1
+
+osc 1 sub octave,72,0,127
+
+glide mode,73,0,3
+glide,74,0,1
+pitchbend range up,75,0,12
+pitchbend range down,76,0,24
+
+air,80,0,127
+girth,81,0,127
+hack,82,0,127
+decimate,83,0,127
+drive,84,0,127
+
+lpf freq,85,0,164
+lpf resonance,86,0,127
+lpf key amt,87,0,127
+lpf 2/4 pole,88,0,1
+
+hpf freq,94,0,127
+hp resonance,95,0,127
+hpf key amt,96,0,127
+
+feedback amt,97,0,254
+feedback tuning,98,0,48
+voice volume,99,0,127
+pan spread,100,0,127
+distortion amt,101,0,127
+vca env amt,103,0,127
+velocity to vca env amt,104,0,127
+vca env delay,105,0,127
+vca env attack,106,0,127
+vca env decay,107,0,127
+vca env sustain,108,0,127
+vca env release,109,0,127
+vca env repeat,110,0,1
+
+lpf env amt,114,0,254
+velocity to lpf env amt,115,0,127
+lpf env delay,116,0,127
+lpf env attack,117,0,127
+lpf env decay,118,0,127
+lpf env sustain,119,0,127
+lpf env release,120,0,127
+lpf env repeat,121,0,1
+
+env 3 amnt,125,0,254
+velocity to env 3 amt,126,0,127
+env 3 delay,127,0,127
+env 3 attack,128,0,127
+env 3 decay,129,0,127
+env 3 sustain,130,0,127
+env 3 release,131,0,127
+env 3 repeat,132,0,1
+env 3 destination,133,0,97
+
+env 4 amnt,136,0,254
+velocity to env 4 amt,137,0,127
+env 4 delay,138,0,127
+env 4 attack,139,0,127
+env 4 decay,140,0,127
+env 4 sustain,141,0,127
+env 4 release,142,0,127
+env 4 repeat,143,0,1
+env 4 destination,144,0,97
+
+lfo 1 freq,147,0,255
+lfo 1 sync setting,148,0,15
+lfo 1 sync,149,0,1
+lfo 1 shape,150,0,7
+lfo 1 amt,151,0,127
+lfo 1 slew rate,152,0,127
+lfo 1 phase,153,0,127
+lfo 1 wave reset,154,0,1
+lfo 1 destination,155,0,97
+
+lfo 2 freq,157,0,255
+lfo 2 sync setting,158,0,15
+lfo 2 sync,159,0,1
+lfo 2 shape,160,0,7
+lfo 2 amt,161,0,127
+lfo 2 slew rate,162,0,127
+lfo 2 phase,163,0,127
+lfo 2 wave reset,164,0,1
+lfo 2 destination,165,0,97
+
+lfo 3 freq,167,0,255
+lfo 3 sync setting,168,0,15
+lfo 3 sync,169,0,1
+lfo 3 shape,170,0,7
+lfo 3 amt,171,0,127
+lfo 3 slew rate,172,0,127
+lfo 3 phase,173,0,127
+lfo 3 wave reset,174,0,1
+lfo 3 destination,175,0,97
+
+lfo 4 freq,177,0,255
+lfo 4 sync setting,178,0,15
+lfo 4 sync,179,0,1
+lfo 4 shape,180,0,7
+lfo 4 amt,181,0,127
+lfo 4 slew rate,182,0,127
+lfo 4 phase,183,0,127
+lfo 4 wave reset,184,0,1
+lfo 4 destination,185,0,97
+
+delay 1 time,187,0,255
+delay 1 sync setting,188,0,11
+delay 1 sync,189,0,1
+delay 1 amt,190,0,127
+delay 1 feedback,191,0,127
+
+delay 2 time,195,0,255
+delay 2 sync setting,196,0,11
+delay 2 sync,197,0,1
+delay 2 amt,198,0,127
+delay 2 feedback,199,0,127
+
+delay 3 time,203,0,255
+delay 3 sync setting,204,0,11
+delay 3 sync,205,0,1
+delay 3 amt,206,0,127
+delay 3 feedback,207,0,127
+
+delay 4 time,211,0,255
+delay 4 sync setting,212,0,11
+delay 4 sync,213,0,1
+delay 4 amt,214,0,127
+delay 4 feedback,215,0,127
+
+mod 1 source,219,0,26
+mod 1 amt,220,0,254
+mod 1 destination,221,0,97
+
+mod 2 source,223,0,26
+mod 2 amt,224,0,254
+mod 2 destination,225,0,97
+
+mod 3 source,227,0,26
+mod 3 amt,228,0,254
+mod 3 destination,229,0,97
+
+mod 4 source,231,0,26
+mod 4 amt,232,0,254
+mod 4 destination,233,0,97
+
+mod 5 source,235,0,26
+mod 5 amt,236,0,254
+mod 5 destination,237,0,97
+
+mod 6 source,239,0,26
+mod 6 amt,240,0,254
+mod 6 destination,241,0,97
+
+mod 7 source,243,0,26
+mod 7 amt,244,0,254
+mod 7 destination,245,0,97
+
+mod 8 source,247,0,26
+mod 8 amt,248,0,254
+mod 8 destination,249,0,97
+
+mod 9 source,251,0,26
+mod 9 amt,252,0,254
+mod 9 destination,253,0,97
+
+mod 10 source,255,0,26
+mod 10 amt,256,0,254
+mod 10 destination,257,0,97
+
+mod 11 source,259,0,26
+mod 11 amt,260,0,254
+mod 11 destination,261,0,97
+
+mod 12 source,263,0,26
+mod 12 amt,264,0,254
+mod 12 destination,265,0,97
+
+mod 13 source,267,0,26
+mod 13 amt,268,0,254
+mod 13 destination,269,0,97
+
+mod 14 source,271,0,26
+mod 14 amt,272,0,254
+mod 14 destination,273,0,97
+
+mod 15 source,275,0,26
+mod 15 amt,276,0,254
+mod 15 destination,277,0,97
+
+mod 16 source,279,0,26
+mod 16 amt,280,0,254
+mod 16 destination,281,0,97
+
+unison,283,0,1
+unison detune,284,0,127
+unison mode,285,0,1
+unison key assign,286,0,5
+split point,287,0,127
+a/b mode,288,0,2
+
+arpeggiator,289,0,1
+arpeggiator mode,290,0,4
+arpeggiator range,291,0,2
+arp clock divide,292,0,10
+arpeggiator repeats,293,0,3
+arpeggiator auto latch,294,0,1
+bpm,288,30,250

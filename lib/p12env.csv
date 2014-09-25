@@ -1,0 +1,19 @@
+name,nprn_number,range_min,range_max
+env 3 amnt,125,0,254
+velocity to env 3 amt,126,0,127
+env 3 delay,127,0,127
+env 3 attack,128,0,127
+env 3 decay,129,0,127
+env 3 sustain,130,0,127
+env 3 release,131,0,127
+env 3 repeat,132,0,1
+env 3 destination,133,0,97
+env 4 amnt,136,0,254
+velocity to env 4 amt,137,0,127
+env 4 delay,138,0,127
+env 4 attack,139,0,127
+env 4 decay,140,0,127
+env 4 sustain,141,0,127
+env 4 release,142,0,127
+env 4 repeat,143,0,1
+env 4 destination,144,0,97

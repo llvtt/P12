@@ -1,0 +1,7 @@
+name,nprn_number,range_min,range_max
+unison,283,0,1
+unison detune,284,0,127
+unison mode,285,0,1
+unison key assign,286,0,5
+split point,287,0,127
+a/b mode,288,0,2

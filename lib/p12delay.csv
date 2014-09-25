@@ -1,0 +1,21 @@
+name,nprn_number,range_min,range_max
+delay 1 time,187,0,255
+delay 1 sync setting,188,0,11
+delay 1 sync,189,0,1
+delay 1 amt,190,0,127
+delay 1 feedback,191,0,127
+delay 2 time,195,0,255
+delay 2 sync setting,196,0,11
+delay 2 sync,197,0,1
+delay 2 amt,198,0,127
+delay 2 feedback,199,0,127
+delay 3 time,203,0,255
+delay 3 sync setting,204,0,11
+delay 3 sync,205,0,1
+delay 3 amt,206,0,127
+delay 3 feedback,207,0,127
+delay 4 time,211,0,255
+delay 4 sync setting,212,0,11
+delay 4 sync,213,0,1
+delay 4 amt,214,0,127
+delay 4 feedback,215,0,127

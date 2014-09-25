@@ -1,0 +1,8 @@
+name,nprn_number,range_min,range_max
+arpeggiator,289,0,1
+arpeggiator mode,290,0,4
+arpeggiator range,291,0,2
+arp clock divide,292,0,10
+arpeggiator repeats,293,0,3
+arpeggiator auto latch,294,0,1
+bpm,288,30,250

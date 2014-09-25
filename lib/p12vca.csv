@@ -1,0 +1,14 @@
+name,nprn_number,range_min,range_max
+feedback amt,97,0,254
+feedback tuning,98,0,48
+voice volume,99,0,127
+pan spread,100,0,127
+distortion amt,101,0,127
+vca env amt,103,0,127
+velocity to vca env amt,104,0,127
+vca env delay,105,0,127
+vca env attack,106,0,127
+vca env decay,107,0,127
+vca env sustain,108,0,127
+vca env release,109,0,127
+vca env repeat,110,0,1

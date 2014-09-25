@@ -1,0 +1,22 @@
+name,nprn_number,range_min,range_max
+master coarse tune,1024,0,24
+master fine tune,1025,0,100
+midi channel,1026,0,16
+midi clock mode,1027,0,3
+midi clock cable,1028,0,1
+midi param send,1029,0,2
+midi param receive,1030,0,2
+midi control enable,1031,0,1
+midi sysex enable,1032,0,1
+midi sysex cable,1033,0,2
+midi out select,1034,0,3
+local control,1035,0,1
+mono/stereo,1036,0,1
+pot mode,1037,0,2
+sustain footswitch,1038,0,1
+sustain pedal function,1039,0,1
+pedal 1 function,1040,0,5
+pedal 2 function,1041,0,1
+aftertouch enable,1042,0,1
+aftertouch curve,1043,0,3
+velocity curve,1044,0,3

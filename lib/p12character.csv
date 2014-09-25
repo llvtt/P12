@@ -1,0 +1,6 @@
+name,nprn_number,range_min,range_max
+air,80,0,127
+girth,81,0,127
+hack,82,0,127
+decimate,83,0,127
+drive,84,0,127
