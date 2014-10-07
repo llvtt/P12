@@ -4,11 +4,14 @@ import os
 import random
 import sys
 
+from functools import wraps
+
 import rtmidi_python
 
 from p12nrpn import (
     banks_from_dir,
-    nrpn_command
+    nrpn_command,
+    Setting
 )
 
 
@@ -17,6 +20,7 @@ CHANNEL = 0
 
 
 def ignore_value_error(f):
+    @wraps(f)
     def wrap(*args, **kwargs):
         try:
             return f(*args, **kwargs)
@@ -30,7 +34,8 @@ class P12CLI(cmd.Cmd):
 
     def __init__(self, *args, **kwargs):
         cmd.Cmd.__init__(self, *args, **kwargs)
-        self.banks = banks_from_dir(os.path.join(os.pardir, 'lib'))
+        here = os.path.dirname(os.path.abspath(__file__))
+        self.banks = banks_from_dir(os.path.join(here, os.pardir, 'lib'))
         self.settings = [s for bank in self.banks for s in self.banks[bank]]
         nprn_number_of = lambda x: x.number
         self.settings.sort(key=nprn_number_of)
@@ -39,10 +44,27 @@ class P12CLI(cmd.Cmd):
     def _show_setting(self, setting):
         print('%d. %s' % (setting[1], setting[0]))
 
-    def _output_value(self, setting, value):
+    def _layer_1_from_layer_0(self, setting):
+        # TODO: this is kind of hacky.
+        setting = Setting(setting.name, setting.number + 512,
+                          setting.min, setting.max)
+        return setting
+
+    def __output_value(self, setting, value):
         messages = nrpn_command(setting, value)
         for message in messages:
             MIDI.send_message(message)
+
+    def _output_value(self, setting, value, layer=0):
+        if layer != 'both':
+            # Skip "split point" and "a/b mode" settings.
+            if setting.number in (287, 288):
+                return False
+        if layer == 0 or layer == 'both':
+            self.__output_value(setting, value)
+        if layer == 1 or layer == 'both':
+            self.__output_value(self._layer_1_from_layer_0(setting), value)
+        return True
 
     def _setting(self, nprn):
         # Binary search.
@@ -65,27 +87,41 @@ class P12CLI(cmd.Cmd):
 
     @ignore_value_error
     def do_out(self, command):
-        """Output a specified, or random, value to a setting."""
+        """Output a specified, or random, value to a setting.
+
+        USAGE: out <nprn number|bank|all> [value = random] [layer = 0[|1|both]]
+        """
         args = command.split()
         if not len(args) > 0:
-            print('out <nprn number|bank|all> [value = random]')
+            print('out <nprn number|bank|all> [value = random] '
+                  '[layer = 0[|1|both]]')
         else:
             nrpn = args[0]
-            if nrpn != 'all':
+            layer = 0
+            if nrpn != 'all' and nrpn not in self.banks:
                 nrpn = int(nrpn)
-            value = 'random'
-            if len(args) == 2 and args[1] != 'random':
+            use_random = True
+            if len(args) >= 2 and args[1] != 'random':
                 value = int(args[1])
+                use_random = False
+            elif len(args) == 3:
+                layer = args[2]
             if nrpn == 'all':
                 for setting in self.settings:
-                    if value == 'random':
+                    if use_random:
                         value = random.randint(setting.min, setting.max)
-                    self._output_value(setting, value)
+                    self._output_value(setting, value, layer=layer)
+            elif nrpn in self.banks:
+                bank_settings = self.banks[nrpn]
+                for setting in bank_settings:
+                    if use_random:
+                        value = random.randint(setting.min, setting.max)
+                    self._output_value(setting, value, layer=layer)
             else:
                 setting = self._setting(nrpn)
-                if value == 'random':
+                if use_random:
                     value = random.randint(setting.min, setting.max)
-                self._output_value(setting, value)
+                self._output_value(setting, value, layer=layer)
 
     @ignore_value_error
     def do_show(self, command):
