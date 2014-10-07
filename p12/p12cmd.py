@@ -11,7 +11,8 @@ import rtmidi_python
 from p12nrpn import (
     banks_from_dir,
     nrpn_command,
-    Setting
+    Setting,
+    ALLOWED_NAME_CHARACTERS
 )
 
 
@@ -78,12 +79,43 @@ class P12CLI(cmd.Cmd):
     def do_channel(self, command):
         """Change or print the current MIDI channel."""
         command = command.strip()
+        global CHANNEL
         if not command:
             print(CHANNEL)
         else:
-            global CHANNEL
             CHANNEL = int(command)
             print(CHANNEL)
+
+    def do_name(self, command):
+        """Name the current patch.
+
+        USAGE: name <layer0 name> [layer1 name]
+        """
+        names = command.strip().split()
+        if not names or len(names) > 2:
+            print("name <layer0 name> [layer1 name]")
+            return
+
+        name_nrpn_start = 480
+        for i in range(len(names)):
+            name = names[i]
+            # Names must be 20 or fewer characters.
+            if len(name) > 20:
+                print("Names must be 20 characters or fewer, but "
+                      "%s is %d characters." % (name, len(name)))
+                return
+            # Validate name characters.
+            for letter in name:
+                if ord(letter) not in ALLOWED_NAME_CHARACTERS:
+                    print("Character %s is not allowed in layer names."
+                          % letter)
+            for index, letter in enumerate(name):
+                # TODO: move this to lib?
+                name_setting = Setting('layer name',
+                                       name_nrpn_start + index + (512 * i),
+                                       ord('A'), ord('z'))
+                value = ord(letter)
+                self._output_value(name_setting, value)
 
     @ignore_value_error
     def do_out(self, command):
