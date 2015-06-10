@@ -18,6 +18,7 @@ from p12nrpn import (
 
 MIDI = rtmidi_python.MidiOut()
 CHANNEL = 0
+PATCHES = {}
 
 
 def ignore_value_error(f):
@@ -41,6 +42,7 @@ class P12CLI(cmd.Cmd):
         nprn_number_of = lambda x: x.number
         self.settings.sort(key=nprn_number_of)
         self.settings_keys = map(nprn_number_of, self.settings)
+        self.prompt = "prophet12> "
 
     def _show_setting(self, setting):
         print('%d. %s' % (setting[1], setting[0]))
@@ -56,24 +58,39 @@ class P12CLI(cmd.Cmd):
         for message in messages:
             MIDI.send_message(message)
 
-    def _output_value(self, setting, value, layer=0):
-        if layer != 'both':
-            # Skip "split point" and "a/b mode" settings.
-            if setting.number in (287, 288):
-                return False
-        if layer == 0 or layer == 'both':
-            self.__output_value(setting, value)
-        if layer == 1 or layer == 'both':
-            self.__output_value(self._layer_1_from_layer_0(setting), value)
-        return True
+    def _output_value(self, settings, value=None, layer=None):
+        for setting in settings:
+            if layer is not None:
+                # Skip "split point" and "a/b mode" settings.
+                if setting.number in (287, 288):
+                    return False
+            r = (value is None)
+            try:
+                if not layer:
+                    v = random.randint(setting.min, setting.max) if r else value
+                    self.__output_value(setting, v)
+                if layer == 1 or layer is None:
+                    v = random.randint(setting.min, setting.max) if r else value
+                    self.__output_value(self._layer_1_from_layer_0(setting), v)
+            except ValueError:
+                pass
+            else:
+                return True
+        return False
 
-    def _setting(self, nprn):
+    def _settings(self, nrpn):
+        """Lookup Settings by NRPN number.
+        Note that there may be more than 1 setting matching an NRPN.
+        """
         # Binary search.
-        setting_number = bisect.bisect_left(self.settings_keys, nprn)
+        setting_number = bisect.bisect_left(self.settings_keys, nrpn)
         if setting_number < len(self.settings) and setting_number > 0:
-            setting = self.settings[setting_number]
-            if setting.number == nprn:
-                return self.settings[setting_number]
+            results = []
+            for i in range(setting_number, len(self.settings)):
+                if self.settings[i].number == nrpn:
+                    results.append(self.settings[i])
+                else:
+                    return results
 
     @ignore_value_error
     def do_channel(self, command):
@@ -91,6 +108,8 @@ class P12CLI(cmd.Cmd):
 
         USAGE: name <layer0 name> [layer1 name]
         """
+        import pdb
+        pdb.set_trace()
         names = command.strip().split()
         if not names or len(names) > 2:
             print("name <layer0 name> [layer1 name]")
@@ -115,9 +134,8 @@ class P12CLI(cmd.Cmd):
                                        name_nrpn_start + index + (512 * i),
                                        ord('A'), ord('z'))
                 value = ord(letter)
-                self._output_value(name_setting, value)
+                self._output_value([name_setting], value, layer=i)
 
-    @ignore_value_error
     def do_out(self, command):
         """Output a specified, or random, value to a setting.
 
@@ -130,42 +148,47 @@ class P12CLI(cmd.Cmd):
         else:
             nrpn = args[0]
             layer = 0
+            value = None
             if nrpn != 'all' and nrpn not in self.banks:
                 nrpn = int(nrpn)
-            use_random = True
             if len(args) >= 2 and args[1] != 'random':
                 value = int(args[1])
-                use_random = False
             elif len(args) == 3:
-                layer = args[2]
+                layer = args[2] if args[2] != 'both' else None
             if nrpn == 'all':
                 for setting in self.settings:
-                    if use_random:
-                        value = random.randint(setting.min, setting.max)
-                    self._output_value(setting, value, layer=layer)
+                    self._output_value([setting], value, layer=layer)
             elif nrpn in self.banks:
                 bank_settings = self.banks[nrpn]
                 for setting in bank_settings:
-                    if use_random:
-                        value = random.randint(setting.min, setting.max)
-                    self._output_value(setting, value, layer=layer)
+                    self._output_value([setting], value, layer=layer)
             else:
-                setting = self._setting(nrpn)
-                if use_random:
-                    value = random.randint(setting.min, setting.max)
-                self._output_value(setting, value, layer=layer)
+                settings = self._settings(nrpn)
+                for setting in settings:
+                    try:
+                        self._output_value([setting], value, layer=layer)
+                    except ValueError:
+                        pass
 
     @ignore_value_error
     def do_show(self, command):
         nprn = int(command.strip())
-        setting = self._setting(nprn)
-        if setting:
+        settings = self._settings(nprn)
+        if not settings:
+            print("No setting with NPRN number %d." % nprn)
+            return
+        for setting in settings:
             print("====== %s ======" % setting.name)
             print("NPRN:                %d" % setting.number)
             print("Minimum value:       %d" % setting.min)
             print("Maximum value:       %d" % setting.max)
-        else:
-            print("No setting with NPRN number %d." % nprn)
+
+    def do_like(self, command):
+        """List Settings whose names resemble the given argument."""
+        like = command.strip()
+        for s in self.settings:
+            if like in s.name:
+                self._show_setting(s)
 
     @ignore_value_error
     def do_midi(self, command):
